@@ -1,19 +1,38 @@
-plugins {
-    id 'java'
+allprojects {
+    group 'com.adu21.config'
+    version '1.0-SNAPSHOT'
 }
 
-group 'com.adu21.config'
-version '1.0-SNAPSHOT'
+subprojects {
+    apply plugin: 'java'
 
-repositories {
-    mavenCentral()
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        // apache commons
+        implementation group: 'commons-io', name: 'commons-io', version: '2.11.0'
+        implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.12.0'
+        implementation group: 'org.apache.commons', name: 'commons-collections4', version: '4.4'
+
+        // lombok
+        compileOnly 'org.projectlombok:lombok:1.18.24'
+        annotationProcessor 'org.projectlombok:lombok:1.18.24'
+        testCompileOnly 'org.projectlombok:lombok:1.18.24'
+        testAnnotationProcessor 'org.projectlombok:lombok:1.18.24'
+
+        // log4j
+        implementation 'org.apache.logging.log4j:log4j-api:2.18.0'
+        implementation 'org.apache.logging.log4j:log4j-core:2.18.0'
+
+        // junit5
+        testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+        testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+    }
+
+    test {
+        useJUnitPlatform()
+    }
 }
 
-dependencies {
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
-}
-
-test {
-    useJUnitPlatform()
-}
